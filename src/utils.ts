@@ -2,8 +2,9 @@ import { randomUUID } from "crypto";
 import { ColumnSummary } from "./models/ColumnSummary";
 import { DataSource } from "./models/DataSource";
 import { Query } from "./models/Query";
-import { ExecuteQueryResults } from "./models/ExecuteQueryResults";
+import { ExecuteQueryResults } from "./models/DTOs/ExecuteQueryResults";
 import { DataRow } from "./models/DataTable";
+import { AskQuestionResponse } from "./models/DTOs/AskQuestionResponse";
 
 export const genericColumnNames = [
   "id",
@@ -82,12 +83,12 @@ export function generateColumnSummary(count: number): ColumnSummary[] {
   return columns;
 }
 
-export function getDataSourceSummary(): DataSource {
+export function generateDataSourceSummary(columnCount: number): DataSource {
   return {
     id: randomUUID(),
     adlPath: "adlPath",
     quickQuery: "quickQuery",
-    columns: generateColumnSummary(10),
+    columns: generateColumnSummary(columnCount),
   };
 }
 
@@ -135,4 +136,20 @@ export function generateQueryResults(
       message: "message",
     },
   };
+}
+
+export function generateAskQuestionResponse(): AskQuestionResponse {
+  return {
+    question: "question",
+    answer: "answer",
+    sources: [generateDataSourceSummary(5)],
+    status: {
+      success: true,
+      message: "message",
+    },
+  };
+}
+
+export function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
