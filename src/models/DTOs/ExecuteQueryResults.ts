@@ -3,7 +3,7 @@ import { Query } from "../Query";
 import { Status } from "../Status";
 
 export type ExecuteQueryResults = {
-  query: Query;
-  data: DataTable;
-  status: Status;
+    query: Query;
+    data: DataTable;
+    status: Status;
 };

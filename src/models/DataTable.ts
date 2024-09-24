@@ -1,5 +1,5 @@
 export type DataColumn = {
-  columnName: string;
+    columnName: string;
 };
 
 export type DataRow = { [key: string]: string };
@@ -8,6 +8,6 @@ export type DataRow = { [key: string]: string };
  * Minimal mocked version of the DataTable object from Dotnet
  */
 export type DataTable = {
-  columns: DataColumn[];
-  rows: DataRow[];
+    columns: DataColumn[];
+    rows: DataRow[];
 };

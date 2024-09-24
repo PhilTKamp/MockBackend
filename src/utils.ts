@@ -7,149 +7,149 @@ import { DataRow } from "./models/DataTable";
 import { AskQuestionResponse } from "./models/DTOs/AskQuestionResponse";
 
 export const genericColumnNames = [
-  "id",
-  "name",
-  "age",
-  "email",
-  "address",
-  "phone",
-  "createdAt",
-  "updatedAt",
-  "status",
-  "role",
+    "id",
+    "name",
+    "age",
+    "email",
+    "address",
+    "phone",
+    "createdAt",
+    "updatedAt",
+    "status",
+    "role",
 ];
 
 export const genericStringValues = [
-  "Lorem",
-  "Ipsum",
-  "Dolor",
-  "Sit",
-  "Amet",
-  "Consectetur",
-  "Adipiscing",
-  "Elit",
-  "Sed",
-  "Do",
-  "Eiusmod",
-  "Tempor",
-  "Incididunt",
-  "Ut",
-  "Labore",
-  "Et",
-  "Dolore",
-  "Magna",
-  "Aliqua",
+    "Lorem",
+    "Ipsum",
+    "Dolor",
+    "Sit",
+    "Amet",
+    "Consectetur",
+    "Adipiscing",
+    "Elit",
+    "Sed",
+    "Do",
+    "Eiusmod",
+    "Tempor",
+    "Incididunt",
+    "Ut",
+    "Labore",
+    "Et",
+    "Dolore",
+    "Magna",
+    "Aliqua",
 ];
 
 export const getGenericColumnName = () => {
-  return genericColumnNames[
-    Math.floor(Math.random() * genericColumnNames.length)
-  ];
+    return genericColumnNames[
+        Math.floor(Math.random() * genericColumnNames.length)
+    ];
 };
 
 export const getGenericStringValue = () => {
-  return genericStringValues[
-    Math.floor(Math.random() * genericStringValues.length)
-  ];
+    return genericStringValues[
+        Math.floor(Math.random() * genericStringValues.length)
+    ];
 };
 
 export function generateColumnSummary(count: number): ColumnSummary[] {
-  const columns: ColumnSummary[] = [];
+    const columns: ColumnSummary[] = [];
 
-  for (let i = 0; i < count; i++) {
-    let column1 = getGenericStringValue();
-    let column2 = getGenericStringValue();
-    let column3 = getGenericStringValue();
-    let column4 = getGenericStringValue();
-    let column5 = getGenericStringValue();
+    for (let i = 0; i < count; i++) {
+        let column1 = getGenericStringValue();
+        let column2 = getGenericStringValue();
+        let column3 = getGenericStringValue();
+        let column4 = getGenericStringValue();
+        let column5 = getGenericStringValue();
 
-    columns.push({
-      columnName: `column${i}`,
-      description: `description${i}`,
-      dataType: `dataType${i}`,
-      min: `min${i}`,
-      max: `max${i}`,
-      median: `median${i}`,
-      top5MostCommonValues: {
-        [column1]: Math.random() * 100,
-        [column2]: Math.random() * 100,
-        [column3]: Math.random() * 100,
-        [column4]: Math.random() * 100,
-        [column5]: Math.random() * 100,
-      },
-      distinctValuesCount: i,
-    });
-  }
-  return columns;
+        columns.push({
+            columnName: `column${i}`,
+            description: `description${i}`,
+            dataType: `dataType${i}`,
+            min: `min${i}`,
+            max: `max${i}`,
+            median: `median${i}`,
+            top5MostCommonValues: {
+                [column1]: Math.random() * 100,
+                [column2]: Math.random() * 100,
+                [column3]: Math.random() * 100,
+                [column4]: Math.random() * 100,
+                [column5]: Math.random() * 100,
+            },
+            distinctValuesCount: i,
+        });
+    }
+    return columns;
 }
 
 export function generateDataSourceSummary(columnCount: number): DataSource {
-  return {
-    id: randomUUID(),
-    adlPath: "adlPath",
-    quickQuery: "quickQuery",
-    columns: generateColumnSummary(columnCount),
-  };
+    return {
+        id: randomUUID(),
+        adlPath: "adlPath",
+        quickQuery: "quickQuery",
+        columns: generateColumnSummary(columnCount),
+    };
 }
 
 export function getQuerySummary(): Query {
-  return {
-    id: randomUUID(),
-    title: "title",
-    query: "query",
-    owner: "owner",
-    adlPath: "adlPath",
-  };
+    return {
+        id: randomUUID(),
+        title: "title",
+        query: "query",
+        owner: "owner",
+        adlPath: "adlPath",
+    };
 }
 
 export function generateRowSummary(
-  columns: string[],
-  rowCount: number
+    columns: string[],
+    rowCount: number
 ): DataRow[] {
-  return Array.from({ length: rowCount }, () => {
-    let row: DataRow = {};
-    columns.forEach((column) => {
-      row[column] = getGenericStringValue();
+    return Array.from({ length: rowCount }, () => {
+        let row: DataRow = {};
+        columns.forEach((column) => {
+            row[column] = getGenericStringValue();
+        });
+        return row;
     });
-    return row;
-  });
 }
 
 export function generateQueryResults(
-  columnCount: number,
-  rowCount: number
+    columnCount: number,
+    rowCount: number
 ): ExecuteQueryResults {
-  let columns = generateColumnSummary(columnCount);
-  let rows = generateRowSummary(
-    columns.map((col) => col.columnName),
-    rowCount
-  );
+    let columns = generateColumnSummary(columnCount);
+    let rows = generateRowSummary(
+        columns.map((col) => col.columnName),
+        rowCount
+    );
 
-  return {
-    query: getQuerySummary(),
-    data: {
-      columns,
-      rows,
-    },
-    status: {
-      success: true,
-      message: "message",
-    },
-  };
+    return {
+        query: getQuerySummary(),
+        data: {
+            columns,
+            rows,
+        },
+        status: {
+            success: true,
+            message: "message",
+        },
+    };
 }
 
 export function generateAskQuestionResponse(): AskQuestionResponse {
-  return {
-    question: "question",
-    answer: "answer",
-    sources: [generateDataSourceSummary(5)],
-    status: {
-      success: true,
-      message: "message",
-    },
-  };
+    return {
+        question: "question",
+        answer: "answer",
+        sources: [generateDataSourceSummary(5)],
+        status: {
+            success: true,
+            message: "message",
+        },
+    };
 }
 
 export function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
