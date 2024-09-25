@@ -1,9 +1,9 @@
 import express from "express";
 import {
     generateAskQuestionResponse,
-    generateDataSourceSummary,
-    generateQueryResults,
-    getQuerySummary,
+    generateGetQueryResponse,
+    generateGetSourceResponse,
+    generateExecuteQueryResponse,
     sleep,
 } from "./utils";
 
@@ -16,6 +16,7 @@ app.use(function (req, res, next) {
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
     );
+    next();
 });
 
 app.get("/", (req, res) => {
@@ -23,23 +24,43 @@ app.get("/", (req, res) => {
 });
 
 app.post("/ExecuteQuery", async (req, res) => {
+    console.log("/ExecuteQuery called with body: ", req.body);
+
     await sleep(Math.random() * 3000);
-    res.send(generateQueryResults(10, 100));
+
+    let ret = generateExecuteQueryResponse(10, 100);
+    console.log("/ExecuteQuery response: ", ret);
+    res.send(ret);
 });
 
 app.get("/GetSource", async (req, res) => {
+    console.log("/ExecuteQuery called with body: ", req.body);
+
     await sleep(Math.random() * 3000);
-    res.send(generateDataSourceSummary(10));
+
+    let ret = generateGetSourceResponse();
+    console.log("/ExecuteQuery response: ", ret);
+    res.send(ret);
 });
 
 app.get("/GetQuery", async (req, res) => {
+    console.log("/ExecuteQuery called with body: ", req.body);
+
     await sleep(Math.random() * 3000);
-    res.send(getQuerySummary());
+
+    let ret = generateGetQueryResponse();
+    console.log("/ExecuteQuery response: ", ret);
+    res.send(ret);
 });
 
 app.get("/AskQuestion", async (req, res) => {
+    console.log("/ExecuteQuery called with body: ", req.body);
+
     await sleep(Math.random() * 3000);
-    res.send(generateAskQuestionResponse());
+
+    let ret = generateAskQuestionResponse();
+    console.log("/ExecuteQuery response: ", ret);
+    res.send(ret);
 });
 
 app.listen(port, () => {

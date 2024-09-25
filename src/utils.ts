@@ -2,9 +2,11 @@ import { randomUUID } from "crypto";
 import { ColumnSummary } from "./models/ColumnSummary";
 import { DataSource } from "./models/DataSource";
 import { Query } from "./models/Query";
-import { ExecuteQueryResults } from "./models/DTOs/ExecuteQueryResults";
+import { ExecuteQueryResponse } from "./models/DTOs/ExecuteQueryResponse";
 import { DataRow } from "./models/DataTable";
 import { AskQuestionResponse } from "./models/DTOs/AskQuestionResponse";
+import { GetSourceResponse } from "./models/DTOs/GetSourceResponse";
+import { GetQueryResponse } from "./models/DTOs/GetQueryResponse";
 
 export const genericColumnNames = [
     "id",
@@ -115,10 +117,10 @@ export function generateRowSummary(
     });
 }
 
-export function generateQueryResults(
+export function generateExecuteQueryResponse(
     columnCount: number,
     rowCount: number
-): ExecuteQueryResults {
+): ExecuteQueryResponse {
     let columns = generateColumnSummary(columnCount);
     let rows = generateRowSummary(
         columns.map((col) => col.columnName),
@@ -147,6 +149,18 @@ export function generateAskQuestionResponse(): AskQuestionResponse {
             success: true,
             message: "message",
         },
+    };
+}
+
+export function generateGetSourceResponse(): GetSourceResponse {
+    return {
+        source: generateDataSourceSummary(5),
+    };
+}
+
+export function generateGetQueryResponse(): GetQueryResponse {
+    return {
+        query: getQuerySummary(),
     };
 }
 
